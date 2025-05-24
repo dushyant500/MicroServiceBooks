@@ -1,0 +1,40 @@
+There are four micro-services(MS)
+1. Discovery-server (http://localhost:8761/)
+2. Cloud-Gateway
+3. BookMS
+4. IssuerMS
+
+MySQL DB (in each of the micro-services application.properties):
+Username: root
+Password: password
+
+
+BookMS
+GET
+Provide details of all the books
+http://localhost:8080/book-lib/books
+
+GET
+Provide details of the book associated with path-variable bookId
+http://localhost:8080/book-lib/book/{Id}
+
+POST
+Add or update(if provided bookId already exist) book 
+http://localhost:8080/book-lib/book
+JSON:
+{"isbn":1,"title":"The mm Man","publishedDate":"2021-08-04","totalCopies":245,"issuedCopies":223,"author":"Manjhi"}
+
+POST
+Delete book by id if exist
+http://localhost:8080/book-lib/delete-book/2
+
+IssuerMS
+GET
+Provide details of the book associated with path-variable bookId if exist
+http://localhost:8081/issuer/bookDetails/{id}
+
+POST
+Issue or return(+/- sign) provided bookId book to provided custId customer only if the book is available and uupdate the same in BookMS DB
+http://localhost:8081/issuer/issueBook
+JSON:
+{"isbn":4,"custId":3,"noOfCopies":-/+1}
